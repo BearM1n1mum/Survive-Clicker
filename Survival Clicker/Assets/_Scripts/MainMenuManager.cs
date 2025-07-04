@@ -1,15 +1,21 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
+
+    [SerializeField] private GameManagerManager gameManageManager;
+    
     [Header("Panels")]
     [SerializeField] private GameObject titleScreenPanel;
     [SerializeField] private GameObject mainMenuScreenPanel;
     [SerializeField] private GameObject optionsScreenPanel;
     [SerializeField] private GameObject pauseMenuScreenPanel;
     [SerializeField] private GameObject endScreenPanel;
+    [SerializeField] private GameObject playGamePanel;
+    [SerializeField] private GameObject GameScreenPanel;
 
 
     [Header("Buttons & sliders")]
@@ -44,6 +50,15 @@ public class GameManager : MonoBehaviour
             }
     }
 
+    public void PlayGame()
+    {
+        playGamePanel.SetActive(true);
+        mainMenuScreenPanel.SetActive(false);
+        endScreenPanel.SetActive(false);
+        pauseMenuScreenPanel.SetActive(false);
+        gameManageManager.InitialiseGame();
+
+    }
     public void TitleScreen()
     {
         
@@ -58,7 +73,9 @@ public class GameManager : MonoBehaviour
 
         endScreenPanel.SetActive(false);
 
-         
+        playGamePanel.SetActive(false);
+
+
     }
 
     public void ShowMainMenu()
@@ -74,6 +91,8 @@ public class GameManager : MonoBehaviour
 
         endScreenPanel.SetActive(false);
     }
+
+    
     public void ShowOptionsMenu()
     {
         titleScreenPanel.SetActive(false);
@@ -91,13 +110,6 @@ public class GameManager : MonoBehaviour
     {
         volume.wholeNumbers = true;
         volumeValue.text = $"{volume.value}%";
-    }
-    public void PlayGame()
-    {
-        mainMenuScreenPanel.SetActive(false);
-        endScreenPanel.SetActive(false);
-        pauseMenuScreenPanel.SetActive(false);
-
     }
     private void PauseGame()
     {
@@ -141,5 +153,6 @@ public class GameManager : MonoBehaviour
         hasPressedAnyKey = false;
         TitleScreen();
     }
+   
 
 }
