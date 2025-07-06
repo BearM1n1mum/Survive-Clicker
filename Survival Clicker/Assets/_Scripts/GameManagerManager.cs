@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Collections.Specialized;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerManager : MonoBehaviour
 {
@@ -12,48 +14,60 @@ public class GameManagerManager : MonoBehaviour
     [SerializeField] private int workers; //DONE
     [SerializeField] private int unemployed; //DONE
     [SerializeField] private int wood; //DONE
-    [SerializeField] private int gold;
+    [SerializeField] private int gold; // from gold mines
     [SerializeField] private int food; //DONE
-    [SerializeField] private int stone;
-    [SerializeField] private int iron;
-    [SerializeField] private int tools;
+    [SerializeField] private int stone; // from quarry
+    [SerializeField] private int iron; // from iron mines
+    [SerializeField] private int tools; // from blacksmith
+
+    // days passing and having house gives people, farm gives food, lumbermill gives wood, blacksmith makes tools,
+    // quarry/gold/ironmine unlocks when blacksmith is built, blacksmith limited to 1 per 50 people, mines give 1 gold/iron per person per day
+    // 
 
     [Header("Building")]
     //farm, house,iron mines,gold mines,woodcutter, blacksmith,quarry
     [SerializeField] private int farm; // 1 house takes 4 people, more houses more population  //DONE
-    [SerializeField] private int house; //DONE
-    [SerializeField] private int ironMines;
-    [SerializeField] private int goldMines;
-    [SerializeField] private int quarry;
-    [SerializeField] private int woodcutter; //DONE
-    [SerializeField] private int blacksmith;
+    [SerializeField] private int house; //DONE gives 1 person every day
+    [SerializeField] private int ironMines; //gives iron, every worker in iron mine produces 1 iron/day
+    [SerializeField] private int goldMines; //gives gold, every worker in iron mine produces 1 gold/day
+    [SerializeField] private int quarry; //gives stone every, worker in iron mine produces 4 stones/day
+    [SerializeField] private int lumberMill; //DONE
+    [SerializeField] private int blacksmithhut; // gives tools,needs 1 worker, costs 5 wood to build,
+                                             // has to have tools to be able to send people to iron/gold mines / quarry
 
     [Header("Resources Text")]
     [SerializeField] private TMP_Text daysText;
     [SerializeField] private TMP_Text populationText;
     [SerializeField] private TMP_Text woodText;
     [SerializeField] private TMP_Text foodText;
+    [SerializeField] private TMP_Text toolsText;
+    [SerializeField] private TMP_Text stoneText;
     [SerializeField] private TMP_Text ironText;
+    [SerializeField] private TMP_Text goldText;
 
     [Header("Buildings Text")]
     [SerializeField] private TMP_Text houseText;
     [SerializeField] private TMP_Text farmText;
-    [SerializeField] private TMP_Text woodCutterText;
+    [SerializeField] private TMP_Text lumberMillText;
     [SerializeField] private TMP_Text notificationText;
+    [SerializeField] private TMP_Text blacksmithhutText;
 
     bool IsGameRunning = false;
-
+    public Image daysCount;
 
     private float timer;
+    private float fillTimer;
+    private int dayDuration = 12;
 
-    
+
 
     private void Update()
     {
         // one minute is one day
         TimeOfDay();
+        FillImage();
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Time.timeScale = 1;
         }
@@ -87,9 +101,10 @@ public class GameManagerManager : MonoBehaviour
             return;
         }
         timer += Time.deltaTime;
-        if (timer >= 1)
+        if (timer >= dayDuration)
         {
             days++;
+            daysCount.fillAmount = 0;
             FoodGathering();
             FoodProduction();
             WoodProduction();
@@ -99,6 +114,11 @@ public class GameManagerManager : MonoBehaviour
             timer = 0;
         }
         
+    }
+    private void FillImage()
+    {
+        fillTimer += Time.deltaTime;
+        daysCount.fillAmount = fillTimer / dayDuration;
     }
 
     private void IncreasePopulation()
@@ -209,7 +229,7 @@ public class GameManagerManager : MonoBehaviour
             wood -= 5;
             WorkerAssign(1);
             UpdateText();
-            woodcutter++;
+            lumberMill++;
         }
         else
         {
@@ -217,10 +237,26 @@ public class GameManagerManager : MonoBehaviour
             StartCoroutine(NotificationText(text));
         }
     }
+    public void BuildBlackSmithHut()
+    {
+        if(wood>=5 && CanAssignWorker(1))
+        {
+
+        wood -= 5;
+        WorkerAssign(1);
+        UpdateText();
+        blacksmithhut++;
+        }
+        else
+        {
+            string text = $"You need {5 - wood} or {1 - unemployed}";
+            StartCoroutine(NotificationText(text));
+        }
+    }
 
     private void WoodProduction()
     {
-        wood += woodcutter * 2;
+        wood += lumberMill * 2;
     }
 
     private void UpdateText()
@@ -230,11 +266,15 @@ public class GameManagerManager : MonoBehaviour
         populationText.text =$"Population: {Population()} / {GetMaxPopulation()} \n workers: {workers} \n Unemployed: {unemployed}";
         woodText.text =$"Wood: {wood}";
         foodText.text = $"Food: {food}";
+        ironText.text = $"Iron: {tools}";
+        ironText.text = $"stone: {stone}";
         ironText.text = $"Iron: {iron}";
+        ironText.text = $"Gold: {gold}";
         //Buildings
         farmText.text = $"Farm: {farm}"; 
         houseText.text = $"House: {house}";
-        woodCutterText.text = $"Woodcutter: {woodcutter}";
+        lumberMillText.text = $"LumberMill: {lumberMill}";
+        blacksmithhutText.text = $"Blacksmith: {blacksmithhut}";
     }
 
     private IEnumerator NotificationText(string text)

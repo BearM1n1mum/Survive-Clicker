@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 458ed2807f6efcf41b10ccf202bbdad3
+guid: 0475bdd69182a0a479d38bc470c66e72
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7410949204435199402
-    second: social-justice_0
-  - first:
-      213: -6536713301746110356
-    second: social-justice_1
+      213: 7516606954103157295
+    second: sun (3)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: social-justice_0
+      name: sun (3)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 6
-        width: 512
-        height: 334
+        x: 6
+        y: 0
+        width: 500
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65a1d25a6f4072990800000000000000
-      internalID: -7410949204435199402
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-justice_1
-      rect:
-        serializedVersion: 2
-        x: 98
-        y: 224
-        width: 316
-        height: 282
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c603ad292ede845a0800000000000000
-      internalID: -6536713301746110356
+      spriteID: f22bc87333a505860800000000000000
+      internalID: 7516606954103157295
       vertices: []
       indices: 
       edges: []
@@ -173,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      social-justice_0: -7410949204435199402
-      social-justice_1: -6536713301746110356
+      sun (3)_0: 7516606954103157295
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
