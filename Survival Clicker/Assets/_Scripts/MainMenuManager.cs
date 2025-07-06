@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject endScreenPanel;
     [SerializeField] private GameObject playGamePanel;
     [SerializeField] private GameObject GameScreenPanel;
+    [SerializeField] private GameObject WinScreenPanel;
 
 
     [Header("Buttons & sliders")]
@@ -75,6 +76,8 @@ public class MainMenuManager : MonoBehaviour
 
         playGamePanel.SetActive(false);
 
+        WinScreenPanel.SetActive(false );
+
 
     }
 
@@ -90,6 +93,10 @@ public class MainMenuManager : MonoBehaviour
         pauseMenuScreenPanel.SetActive(false);
 
         endScreenPanel.SetActive(false);
+
+        playGamePanel.SetActive(false);
+
+        WinScreenPanel.SetActive(false);
     }
 
     
@@ -99,11 +106,15 @@ public class MainMenuManager : MonoBehaviour
 
         mainMenuScreenPanel.SetActive(false);
 
-        optionsScreenPanel.SetActive(false);
+        optionsScreenPanel.SetActive(true);
 
         pauseMenuScreenPanel.SetActive(false);
 
-        endScreenPanel.SetActive(true);
+        endScreenPanel.SetActive(false);
+
+        playGamePanel.SetActive(false);
+
+        WinScreenPanel.SetActive(false);
     }
 
     public void VolumeValue()
@@ -128,18 +139,40 @@ public class MainMenuManager : MonoBehaviour
         endScreenPanel.SetActive(false);
     }
 
-    private void LooseScenario()
+    public void WinScenario()
     {
         titleScreenPanel.SetActive(false);
 
-        mainMenuScreenPanel.SetActive(true);
+        mainMenuScreenPanel.SetActive(false);
 
         optionsScreenPanel.SetActive(false);
 
         pauseMenuScreenPanel.SetActive(false);
 
-        endScreenPanel.SetActive(true);
+        endScreenPanel.SetActive(false);
 
+        playGamePanel.SetActive(false);
+
+        WinScreenPanel.SetActive(true);
+
+
+    }
+
+    public void LooseScenario()
+    {
+        titleScreenPanel.SetActive(false);
+
+        mainMenuScreenPanel.SetActive(false);
+
+        optionsScreenPanel.SetActive(false);
+        
+        playGamePanel.SetActive(false);
+
+        pauseMenuScreenPanel.SetActive(false);
+
+        WinScreenPanel.SetActive(false);
+
+        endScreenPanel.SetActive(true);
     }
 
     public void ExitGame()
